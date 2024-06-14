@@ -1,0 +1,14 @@
+<div class="form-group row">
+    <label class="col-sm-12 col-md-2 col-form-label" for="{{ widget.attrs.id }}">
+        {{ field.label }}
+    </label>
+    <div class="col-sm-12 col-md-10">
+        {{ widget }}
+        {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    </div>
+</div>

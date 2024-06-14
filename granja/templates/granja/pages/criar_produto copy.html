@@ -1,0 +1,73 @@
+{% extends "granja/base.html" %}
+{% load static %}
+
+{% block main_container %}
+{% with title="Adicionar Produtos" %}
+    {% include 'granja/partials/sub-header.html' %}
+{% endwith %}
+<form>
+    <div class="form-group row">
+		<label class="col-sm-12 col-md-2 col-form-label">Estoque:</label>
+		<div class="col-sm-12 col-md-10">
+			<select class="custom-select col-12">
+				<option selected="">Escolha...</option>
+                {% for estoque in estoque %}
+				    <option value="{{ estoque.id }}">{{ estoque.nome }}</option>
+                {% endfor %}
+			</select>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-sm-12 col-md-2 col-form-label">Nome:</label>
+		<div class="col-sm-12 col-md-10">
+			<input class="form-control" type="text" placeholder="Ovos...">
+		</div>
+	</div>
+    <div class="form-group row">
+		<label class="col-sm-12 col-md-2 col-form-label">Preço riscado R̶$̶2̶0̶:</label>
+		<div class="col-sm-12 col-md-10">
+			<input class="form-control" value="20.00" type="number">
+		</div>
+	</div>
+    
+    <div class="form-group row">
+		<label class="col-sm-12 col-md-2 col-form-label">Preço:</label>
+		<div class="col-sm-12 col-md-10">
+			<input class="form-control" value="17.00" type="number">
+		</div>
+	</div>
+
+    <div class="form-group row">
+		<label class="col-sm-12 col-md-2 col-form-label">Data de Pedido:</label>
+		<div class="col-sm-12 col-md-10">
+			<input class="form-control date-picker" placeholder="Selecione a Data" type="text">
+		</div>
+	</div>
+
+    <div class="form-group row">
+		<label class="col-sm-12 col-md-2 col-form-label">Data de Entrega:</label>
+		<div class="col-sm-12 col-md-10">
+			<input class="form-control date-picker" placeholder="Selecione a Data" type="text">
+		</div>
+	</div>
+
+    <div class="form-group row">
+		<label class="col-sm-12 col-md-2 col-form-label">Color:</label>
+		<div class="col-sm-12 col-md-10">
+			<input class="form-control" value="#563d7c" type="color">
+		</div>
+	</div>
+    <div class="form-group row">
+		<label class="col-sm-12 col-md-2 col-form-label">Imagem do produto:</label>
+		<div class="col-sm-12 col-md-10">
+            <input type="file" class="form-control-file form-control height-auto">
+		</div>
+	</div>
+    <div class="form-group row">
+		<label class="col-sm-12 col-md-2 col-form-label">Descrição:</label>
+		<div class="col-sm-12 col-md-10">
+			<input class="form-control" type="text" placeholder="Ovos Caipira...">
+		</div>
+	</div>
+</form>
+{% endblock main_container %}					

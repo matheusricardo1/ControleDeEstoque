@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ovos Seu João Vendas</title>
+</head>
+<style>
+    *{
+        padding:0;
+        margin: 0;
+        font-family: 'Arial';
+    }
+    header{
+        margin: auto;
+        width: 100%;
+    }
+    .header{
+        padding: 40px 0;
+        margin: auto;
+        width: 80%;
+    }
+    main{
+        margin: auto;
+        width: 100%;
+    }
+    .main-view{
+        padding: 40px 0;
+        margin: auto;
+        width: 80%;
+    }
+    .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .product-box {
+        background-color: #e0e0e0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .product-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: calc(33.33% - 20px); /* Defina a largura do item do produto */
+        box-sizing: border-box;
+    }
+    
+    /* Estilos adicionais conforme necessário */
+    .product-item h3 {
+        margin: 0;
+    }
+    
+    /* Estilos para quando a tela for menor */
+    @media screen and (max-width: 768px) {
+        .product-item {
+            width: calc(50% - 20px); /* Altere a largura do item do produto para 50% em telas menores */
+        }
+    }
+    
+    @media screen and (max-width: 480px) {
+        .product-item {
+            width: calc(100% - 20px); /* Altere a largura do item do produto para 100% em telas ainda menores */
+        }
+    }
+
+</style>
+<body>
+    <header>
+        <div class="header">
+            <h1>Grajna Ovos Seu João!</h1>
+        </div>
+    </header>
+    <main>
+        <div class="main-view">
+            <table>
+                <thead>
+                  <tr>
+                    <th>Vendedor</th>
+                    <th>Cliente</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Desconto</th>
+                    <!--
+                    <th>Data do Pedido</th>
+                    -->
+                    <th>Data de Entrega</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for venda in vendas %}
+                  <tr>
+                    <td>{{ venda.vendedor }}</td>
+                    <td>{{ venda.cliente }}</td>
+                    <td>{{ venda.produto }}</td>
+                    <td>{{ venda.quantidade }}</td>
+                    <td>{{ venda.tem_deconto }}</td>
+                    <!--
+                    <td>{{ venda.data_pedido }}</td>
+                    -->
+                    <td>{{ venda.data_entrega }}</td>
+                    <!-- Adicione mais colunas conforme necessário -->
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            <div class="product-list">
+                <div class="product-box">
+                </div>
+            </div>
+        </div>
+    </main>
+    
+</body>
+</html>

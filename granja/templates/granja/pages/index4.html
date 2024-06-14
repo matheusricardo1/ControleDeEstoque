@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem de Vendas</title>
+</head>
+<body>
+    <h1>Listagem de Vendas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Vendedor</th>
+                <th>Cliente</th>
+                <th>Quantidade</th>
+                <th>Valor da Venda</th>
+                <th>Desconto</th>
+                <th>Dia da Semana</th>
+                <th>Data Entrega</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venda in vendas %}
+            <tr>
+                <td>{{ venda.vendedor.nome }}</td>
+                <td>{{ venda.cliente.nome }}</td>
+                <td>{{ venda.quantidade }}</td>
+                <td>{{ venda.calcular_valor }}</td>
+                <td>{{ venda.tem_deconto }}</td>
+                <td>{{ venda.dia_da_semana }}</td>
+                <td>{{ venda.data_entrega }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

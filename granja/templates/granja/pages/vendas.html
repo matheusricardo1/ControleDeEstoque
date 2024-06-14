@@ -1,0 +1,47 @@
+{% extends "granja/base.html" %}
+{% load static %}
+
+{% block main_container %}
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="pd-20 card-box mb-30">
+        <div class="clearfix mb-20">
+            <div class="pull-left">
+                <h4 class="text-blue h4">Vendas Ovos Seu João</h4>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="white-space: nowrap;" scope="col">Cliente</th>
+                        <th style="white-space: nowrap;" scope="col">Produto</th>
+                        <th style="white-space: nowrap;" scope="col">Quantidade</th>
+                        <th style="white-space: nowrap;" scope="col">Valor da Venda</th>
+                        <th style="white-space: nowrap;" scope="col">Desconto</th>
+                        <th style="white-space: nowrap;" scope="col">Dia da Semana</th>
+                        <th style="white-space: nowrap;" scope="col">Data de Entrega</th>
+                        <th style="white-space: nowrap;" scope="col">Editar Venda</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for venda in vendas %}
+                    <tr>
+                        <td style="white-space: nowrap;">{{ venda.cliente.nome }}</td>
+                        <td style="white-space: nowrap;">{{ venda.produto.nome }}</td>
+                        <td style="white-space: nowrap;">{{ venda.quantidade }}</td>
+                        <td style="white-space: nowrap;">R${{ venda.valor_total|floatformat:2 }}</td>
+                        <td style="white-space: nowrap;">{{ venda.get_desconto }}</td>
+                        <td style="white-space: nowrap;">{{ venda.dia_da_semana|title }}</td>
+                        <td style="white-space: nowrap;">{{ venda.data_entrega }}</td>
+                        <td>
+                            <a href="{% url 'granja:editar_venda' venda.id %}" class="badge -secondary">Editar Venda</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+                                
+        </div>
+    </div>
+</div>
+{% endblock main_container %}

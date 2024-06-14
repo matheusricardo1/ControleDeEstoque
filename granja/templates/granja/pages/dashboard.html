@@ -1,0 +1,566 @@
+{% extends "granja/base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+
+		<link rel="stylesheet" type="text/css" href="{% static 'granja/css/core.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'granja/css/style.css' %}" />
+
+        {% block styles %}
+            <link
+                rel="stylesheet"
+                type="text/css"
+                href="{% static 'granja/css/icon-font.min.css' %}"
+            />
+            <link
+                rel="stylesheet"
+                type="text/css"
+                href="{% static 'granja/css/dataTables.bootstrap4.min.css' %}"
+            />
+            <link
+                rel="stylesheet"
+                type="text/css"
+                href="{% static 'granja/css/responsive.bootstrap4.min.css' %}"
+            />
+        {% endblock styles %}
+
+        {% block main_container %}
+        <style>
+            #mensagemVendas{
+                position: absolute; left: -10000px; top: -10000px;
+            }
+        </style>
+
+        <script>
+            function copiarTexto() {
+                var copyText = document.getElementById("mensagemVendas");
+                copyText.select();
+                document.execCommand("copy");
+            }
+        </script>
+        <div class="xs-pd-20-10 pd-ltr-20">
+            <div class="title pb-20">
+                <h2 class="h3 mb-0">Dashboard de Vendas</h2>
+            </div>
+
+            <div class="row pb-10">
+                
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                    <div class="card-box height-100-p widget-style3">
+                        <div class="d-flex flex-wrap">
+                            <div class="widget-data">
+                                <div class="weight-700 font-24 text-dark">{{ clientes }}</div>
+                                <div class="font-14 text-secondary weight-500">
+                                    Vendas
+                                </div>
+                            </div>
+                            <div class="widget-icon">
+                                <div class="icon" data-color="#30EB65">
+                                    <i class="icon-copy bi bi-whatsapp"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                    <div class="card-box height-100-p widget-style3">
+                        <div class="d-flex flex-wrap">
+                            <div class="widget-data">
+                                <div class="weight-700 font-24 text-dark">R${{ lucro|floatformat:0 }},00</div>
+                                <div class="font-14 text-secondary weight-500">Lucro</div>
+                            </div>
+                            <div class="widget-icon">
+                                <div class="icon" data-color="#09cc06">
+                                    <i class="icon-copy fa fa-money" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                    <div class="card-box height-100-p widget-style3">
+                        <div class="d-flex flex-wrap">
+                            <div class="widget-data">
+                                <div class="weight-700 font-24 text-dark">{{ formas }} Fôrmas</div>
+                                <div class="font-14 text-secondary weight-500">
+                                    Estoque Vendido
+                                </div>
+                            </div>
+                            <div class="widget-icon">
+                                <div class="icon" data-color="#F3AC5B">
+                                    <i class="icon-copy bi bi-boxes"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                    <div class="card-box height-100-p widget-style3">
+                        <div class="d-flex flex-wrap">
+                            <div class="widget-data">
+                                <div class="weight-700 font-24 text-dark">R$1065,00</div>
+                                <div class="font-14 text-secondary weight-500">
+                                    Gasto Ração
+                                </div>
+                            </div>
+                            <div class="widget-icon">
+                                <div class="icon" data-color="#ff0f0f">
+                                    <i class="icon-copy bi bi-graph-down-arrow"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+            </div>
+            <div class="row pb-10">
+                <div class="col-md-8 mb-20">
+                    <div class="card-box height-100-p pd-20">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center pb-0 pb-md-3">
+                            <div class="h5 mb-md-0">Granja Atividades</div>
+                            <div class="form-group mb-md-0">
+                                <select class="form-control form-control-sm selectpicker">
+                                    <option value="">Ultima semana</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="activities-chart"></div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-20">
+                    <div class="card-box min-height-200px pd-20 mb-20" data-bgcolor="#455a64">
+                        <div class="d-flex justify-content-between pb-20 text-white">
+                            <div class="icon h1 text-white">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                <!-- <i class="icon-copy fa fa-stethoscope" aria-hidden="true"></i> -->
+                            </div>
+                            <div class="font-14 text-right">
+                                <div><i class="icon-copy ion-arrow-up-c"></i> 2.69%</div>
+                                <div class="font-12">Desde a última semana</div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-end">
+                            <div class="text-white">
+                                <div class="font-14">Fôrmas vendidas</div>
+                                <div class="font-24 weight-500">{{ formas }}</div>
+                            </div>
+                            <div class="max-width-150">
+                                <div id="appointment-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-box min-height-200px pd-20" data-bgcolor="#265ed7">
+                        <div class="d-flex justify-content-between pb-20 text-white">
+                            <div class="icon h1 text-white">
+                                <i class="fa fa-stethoscope" aria-hidden="true"></i>
+                            </div>
+                            <div class="font-14 text-right">
+                                <div>
+                                    
+                                    {% if lucro_semana_passada < lucro %}
+                                    <i class="icon-copy ion-arrow-up-c">
+                                    {% else %}
+                                    <i class="icon-copy ion-arrow-down-c">
+                                    {% endif %}
+                                    </i>
+                                    {{ porcentagem_aumento|floatformat:2 }}%
+                                    
+                                </div>
+                                <div class="font-12">Ultima Semana</div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-end">
+                            <div class="text-white">
+                                <div class="font-14">Comparação de Vendas</div>
+                                {% if lucro_semana_passada < lucro %}
+                                    <div class="font-24 weight-500">+R${{ diferenca_lucro|floatformat:0 }},00</div>
+                                {% else %}
+                                    <div class="font-24 weight-500">-R${{ diferenca_lucro|floatformat:0 }},00</div>
+                                {% endif %}
+                                
+                            </div>
+                            <div class="max-width-150">
+                                <div id="surgery-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-20">
+                    <div class="card-box height-100-p pd-20 min-height-200px">
+                        <div class="d-flex justify-content-between pb-10">
+                            <div class="h5 mb-0">Top Doctors</div>
+                            <div class="dropdown">
+                                <a
+                                    class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                                    data-color="#1b3133"
+                                    href="#"
+                                    role="button"
+                                    data-toggle="dropdown"
+                                >
+                                    <i class="dw dw-more"></i>
+                                </a>
+                                <div
+                                    class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
+                                >
+                                    <a class="dropdown-item" href="#"
+                                        ><i class="dw dw-eye"></i> View</a
+                                    >
+                                    <a class="dropdown-item" href="#"
+                                        ><i class="dw dw-edit2"></i> Edit</a
+                                    >
+                                    <a class="dropdown-item" href="#"
+                                        ><i class="dw dw-delete-3"></i> Delete</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-list">
+                            <ul>
+                                <li class="d-flex align-items-center justify-content-between">
+                                    <div class="name-avatar d-flex align-items-center pr-2">
+                                        <div class="avatar mr-2 flex-shrink-0">
+                                            <img
+                                                src="{% static 'granja/images/photo1.jpg' %}"
+                                                class="border-radius-100 box-shadow"
+                                                width="50"
+                                                height="50"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div class="txt">
+                                            <span
+                                                class="badge badge-pill badge-sm"
+                                                data-bgcolor="#e7ebf5"
+                                                data-color="#265ed7"
+                                                >4.9</span
+                                            >
+                                            <div class="font-14 weight-600">Dr. Neil Wagner</div>
+                                            <div class="font-12 weight-500" data-color="#b2b1b6">
+                                                Pediatrician
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cta flex-shrink-0">
+                                        <a href="#" class="btn btn-sm btn-outline-primary"
+                                            >Schedule</a
+                                        >
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center justify-content-between">
+                                    <div class="name-avatar d-flex align-items-center pr-2">
+                                        <div class="avatar mr-2 flex-shrink-0">
+                                            <img
+                                                src="{% static 'granja/images/photo2.jpg' %}"
+                                                class="border-radius-100 box-shadow"
+                                                width="50"
+                                                height="50"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div class="txt">
+                                            <span
+                                                class="badge badge-pill badge-sm"
+                                                data-bgcolor="#e7ebf5"
+                                                data-color="#265ed7"
+                                                >4.9</span
+                                            >
+                                            <div class="font-14 weight-600">Dr. Ren Delan</div>
+                                            <div class="font-12 weight-500" data-color="#b2b1b6">
+                                                Pediatrician
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cta flex-shrink-0">
+                                        <a href="#" class="btn btn-sm btn-outline-primary"
+                                            >Schedule</a
+                                        >
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center justify-content-between">
+                                    <div class="name-avatar d-flex align-items-center pr-2">
+                                        <div class="avatar mr-2 flex-shrink-0">
+                                            <img
+                                                src="{% static 'granja/images/photo3.jpg' %}"
+                                                class="border-radius-100 box-shadow"
+                                                width="50"
+                                                height="50"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div class="txt">
+                                            <span
+                                                class="badge badge-pill badge-sm"
+                                                data-bgcolor="#e7ebf5"
+                                                data-color="#265ed7"
+                                                >4.9</span
+                                            >
+                                            <div class="font-14 weight-600">Dr. Garrett Kincy</div>
+                                            <div class="font-12 weight-500" data-color="#b2b1b6">
+                                                Pediatrician
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cta flex-shrink-0">
+                                        <a href="#" class="btn btn-sm btn-outline-primary"
+                                            >Schedule</a
+                                        >
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center justify-content-between">
+                                    <div class="name-avatar d-flex align-items-center pr-2">
+                                        <div class="avatar mr-2 flex-shrink-0">
+                                            <img
+                                                src="{% static 'granja/images/photo4.jpg' %}"
+                                                class="border-radius-100 box-shadow"
+                                                width="50"
+                                                height="50"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div class="txt">
+                                            <span
+                                                class="badge badge-pill badge-sm"
+                                                data-bgcolor="#e7ebf5"
+                                                data-color="#265ed7"
+                                                >4.9</span
+                                            >
+                                            <div class="font-14 weight-600">Dr. Callie Reed</div>
+                                            <div class="font-12 weight-500" data-color="#b2b1b6">
+                                                Pediatrician
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cta flex-shrink-0">
+                                        <a href="#" class="btn btn-sm btn-outline-primary"
+                                            >Schedule</a
+                                        >
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-20">
+                    <div class="card-box height-100-p pd-20 min-height-200px">
+                        <div class="d-flex justify-content-between">
+                            <div class="h5 mb-0">Diseases Report</div>
+                            <div class="dropdown">
+                                <a
+                                    class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                                    data-color="#1b3133"
+                                    href="#"
+                                    role="button"
+                                    data-toggle="dropdown"
+                                >
+                                    <i class="dw dw-more"></i>
+                                </a>
+                                <div
+                                    class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
+                                >
+                                    <a class="dropdown-item" href="#"
+                                        ><i class="dw dw-eye"></i> View</a
+                                    >
+                                    <a class="dropdown-item" href="#"
+                                        ><i class="dw dw-edit2"></i> Edit</a
+                                    >
+                                    <a class="dropdown-item" href="#"
+                                        ><i class="dw dw-delete-3"></i> Delete</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="diseases-chart"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-20">
+                    <div class="card-box height-100-p pd-20 min-height-200px">
+                        <div class="max-width-300 mx-auto">
+                            <img src="{% static 'granja/images/upgrade.svg' %}" alt="" />
+                        </div>
+                        <div class="text-center">
+                            <div class="h5 mb-1">Mensagem do Whatsapp</div>
+                            <div class="font-14 weight-500 max-width-200 mx-auto pb-20" data-color="#a6a6a7">
+                                Clique abaixo e gere a lista de vendas para whatsapp!
+                            </div>
+                            <textarea id="mensagemVendas" rows="20" cols="50">{{ messagem_whatsapp }}</textarea>
+                            <button class="btn btn-primary btn-lg" onclick="copiarTexto()">Copiar</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="title pb-20 pt-20">
+                <h2 class="h3 mb-0">Quick Start</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-20">
+                    <a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
+                        <div class="img pb-30">
+                            <img src="{% static 'granja/images/medicine-bro.svg' %}" alt="" />
+                        </div>
+                        <div class="content">
+                            <h3 class="h4">Services</h3>
+                            <p class="max-width-200">
+                                We provide superior health care in a compassionate maner
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mb-20">
+                    <a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
+                        <div class="img pb-30">
+                            <img src="{% static 'granja/images/remedy-amico.svg' %}" alt="" />
+                        </div>
+                        <div class="content">
+                            <h3 class="h4">Medications</h3>
+                            <p class="max-width-200">
+                                Look for prescription and over-the-counter drug information.
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mb-20">
+                    <a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
+                        <div class="img pb-30">
+                            <img src="{% static 'granja/images/paper-map-cuate.svg' %}" alt="" />
+                        </div>
+                        <div class="content">
+                            <h3 class="h4">Locations</h3>
+                            <p class="max-width-200">
+                                Convenient locations when and where you need them.
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-wrap pd-20 mb-20 card-box">
+                DeskApp - Bootstrap 4 Admin Template By
+                <a href="https://github.com/dropways" target="_blank"
+                    >Ankit Hingarajiya</a
+                >
+            </div>
+        </div>
+
+        <script>
+
+            {% for id, teste in teste.items %}
+                console.log("{{ id }} - {{ teste.nome }} -  {{ teste.sexo }}")
+            {% endfor %}
+
+            {% for dia, quantidade in semana_passada.items %}
+                console.log("{{ dia }} - {{ quantidade }}")
+            {% endfor %}
+
+            var options = {
+                series: [
+                {
+                    name: "Semana Passada",
+                    data: [
+                    {% for dia, quantidade in semana_passada.items %}
+                        {{ quantidade }},
+                    {% endfor %}
+                    ]
+                },
+                {
+                    name: "Semana Atual",
+                    data: [
+                    {% for dia, quantidade in semana_atual.items %}
+                        {{ quantidade }},
+                    {% endfor %}
+                    ]
+                }
+                ],
+                chart: {
+                    height: 300,
+                    type: 'line',
+                    zoom: {
+                        enabled: false,
+                    },
+                    dropShadow: {
+                        enabled: true,
+                        color: '#000',
+                        top: 18,
+                        left: 7,
+                        blur: 16,
+                        opacity: 0.2
+                    },
+                    toolbar: {
+                        show: false
+                    }
+                },
+                colors: ['#f0746c', '#255cd3'],
+                dataLabels: {
+                    enabled: false,
+                },
+                stroke: {
+                    width: [3,3],
+                    curve: 'smooth'
+                },
+                grid: {
+                    show: false,
+                },
+                markers: {
+                    colors: ['#f0746c', '#255cd3'],
+                    size: 5,
+                    strokeColors: '#ffffff',
+                    strokeWidth: 2,
+                    hover: {
+                        sizeOffset: 2
+                    }
+                },
+                xaxis: {
+                    categories: ['Seg', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+                    labels:{
+                        style:{
+                            colors: '#8c9094'
+                        }
+                    }
+                },
+                yaxis: {
+                    min: 0,
+                    max: {{ tamanho_grafico }},
+                    labels:{
+                        style:{
+                            colors: '#8c9094'
+                        }
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'right',
+                    floating: true,
+                    offsetY: 0,
+                    labels: {
+                        useSeriesColors: true
+                    },
+                    markers: {
+                        width: 10,
+                        height: 10,
+                    }
+                }
+            };
+        </script>
+
+		<script src="{% static 'granja/scripts/apexcharts.min.js' %}"></script>
+		<script src="{% static 'granja/scripts/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'granja/scripts/dataTables.bootstrap4.min.js' %}"></script>
+		<script src="{% static 'granja/scripts/dataTables.responsive.min.js' %}"></script>
+		<script src="{% static 'granja/scripts/responsive.bootstrap4.min.js' %}"></script>
+		<script src="{% static 'granja/scripts/dashboard3.js' %}"></script>
+        {% endblock main_container %}
+		<!-- js -->
+		
+	</body>
+</html>
