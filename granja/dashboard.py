@@ -28,14 +28,15 @@ class Dashboard:
         fim_semana = inicio_semana + timedelta(days=6)
         return inicio_semana, fim_semana
 
-    def config(self):
-        self.hoje = datetime.today()
+    def config(self, today):
+        self.hoje = today
         self.inicio_semana_atual, self.fim_semana_atual = self.get_week(self.hoje)
         semana_passada = self.hoje - timedelta(days=7)
         self.inicio_semana_passada, self.fim_semana_passada = self.get_week(semana_passada)
 
-    def __init__(self):
-        self.config()
+    def __init__(self, today=datetime.today()):
+
+        self.config(today)
         self.limpar_quantidade()
         
         self.vendas_semana_atual = Venda.objects.filter(data_entrega__range=[self.inicio_semana_atual, self.fim_semana_atual]).order_by('data_entrega')

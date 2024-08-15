@@ -1,0 +1,67 @@
+{% extends "granja/auth/auth.html" %}
+{% load static %}
+
+{% block authform %}
+
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-6 col-lg-7">
+            <img src="{% static 'granja/images/login-page-img.png' %}" alt="" />
+        </div>
+        <div class="col-md-6 col-lg-5">
+            <div class="login-box bg-white box-shadow border-radius-10">
+                <div class="login-title">
+                    <h2 class="text-center text-primary">Entre no Business</h2>
+                </div>
+                <form method="POST" action="{% url 'granja:register' %}">
+                    {% csrf_token %}
+                    <div class="input-group custom">
+                        <input
+                            type="text"
+                            class="form-control form-control-lg"
+                            placeholder='Nome de usuario: "matheus123"'
+                            name="username"
+                        />
+                        <div class="input-group-append custom">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-id-card"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group custom">
+                        <input
+                            type="password"
+                            class="form-control form-control-lg"
+                            placeholder="Confirme sua senha"
+                            name="password"
+                        />
+                        <div class="input-group-append custom">
+                            <span class="input-group-text"
+                                ><i class="dw dw-padlock1"></i
+                            ></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group mb-0">
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Entrar</button>
+                                
+                            </div>
+                            <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">
+                                Ou
+                            </div>
+                            <div class="input-group mb-0">
+                                <a class="btn btn-outline-primary btn-lg btn-block" href="{% url 'granja:register' %}">
+                                    Crie sua conta
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock authform %}
+

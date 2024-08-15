@@ -1,6 +1,5 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <title>Ovos Seu João</title>
@@ -18,6 +17,7 @@
     <link rel="stylesheet" href="{% static 'granja/css/style.css' %}">
 
     {% block styles %}{% endblock styles %}
+    <script src="https://kit.fontawesome.com/2fa54fac04.js" crossorigin="anonymous"></script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2973766580778258" crossorigin="anonymous"></script>
@@ -43,21 +43,29 @@
     </script>
 
 </head>
-<body>
-    {% include "granja/partials/header.html" %}
-    {% include "granja/partials/sidebar.html" %}
-    <div class="main-container">
-    {% block main_container %}
-    {% endblock main_container %}
+<body class="login-page">
+    <div class="login-header box-shadow">
+        <div
+            class="container-fluid d-flex justify-content-between align-items-center"
+        >
+            <div class="brand-logo">
+                <a href="login.html">
+                    <img src="{% static 'granja/images/deskapp-logo.svg' %}" alt="" />
+                </a>
+            </div>
+            <div class="login-menu">
+                <ul>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
+    <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+        {% block authform %}
+        {% endblock authform %}
+    </div>
+    <script src="{% static 'granja/scripts/core.js' %}"></script>
+    <script src="{% static 'granja/scripts/script.min.js' %}"></script>
+    <script src="{% static 'granja/scripts/process.js' %}"></script>
+    <script src="{% static 'granja/scripts/layout-settings.js' %}"></script>
 </body>
-<script src="{% static 'granja/scripts/core.js' %}"></script>
-<script src="{% static 'granja/scripts/script.min.js' %}"></script>
-<script src="{% static 'granja/scripts/process.js' %}"></script>
-<script src="{% static 'granja/scripts/layout-settings.js' %}"></script>
-</html>
-
-
-
-
-                              

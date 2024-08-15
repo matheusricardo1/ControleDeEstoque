@@ -1,80 +1,84 @@
 {% load static %}
 
-<div class="left-side-bar">
-    <div class="brand-logo">
-        <a href="{% url 'granja:index' %}">
-            <img src="{% static 'granja/images/deskapp-logo.svg' %}" alt="" class="dark-logo">
-            <img src="{% static 'granja/images/deskapp-logo-white.svg' %}" alt="" class="light-logo">
-        </a>
-        <div class="close-sidebar" data-toggle="left-sidebar-close">
-            <i class="ion-close-round"></i>
+<div class="sidebar-light">
+    <div class="left-side-bar">
+        <div class="brand-logo">
+            <a href="{% url 'granja:index' %}">
+                <img src="{% static 'granja/images/deskapp-logo.svg' %}" alt="" class="dark-logo">
+                <img src="{% static 'granja/images/deskapp-logo-white.svg' %}" alt="" class="light-logo">
+            </a>
+            <div class="close-sidebar" data-toggle="left-sidebar-close">
+                <i class="ion-close-round"></i>
+            </div>
+        </div>
+        <div class="menu-block customscroll">
+            <div class="sidebar-menu">
+                <ul id="accordion-menu">
+                    <li>
+                        <a href="{% url 'granja:dashboard' %}" class="dropdown-toggle no-arrow">
+                            <span class="micon bi bi-clipboard-data"></span><span class="mtext">Dashboad</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle" data-option="off">
+                            
+                            <span class="micon bi bi-bag-check-fill"></span><span class="mtext">Vendas</span>
+                        </a>
+                        <ul class="submenu">
+                            <li >
+                                <a href="{% url 'granja:gerar_venda' %}">Gerar Venda</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'granja:vendas' %}">Ver Vendas</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle" data-option="off">
+                            <span class="micon bi bi-shop"></span><span class="mtext">Produtos</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="{% url 'granja:produtos' %}">Ver Produtos</a></li>
+                            <li><a href="{% url 'granja:criar_produto' %}">Criar Produtos</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle" data-option="off">
+                            <span class="micon bi bi-table"></span><span class="mtext">Tables</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="basic-table.html">Basic Tables</a></li>
+                            <li><a href="datatable.html">DataTables</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle" data-option="off">
+                            <span class="micon bi bi-box2-fill"></span><span class="mtext"> Estoque </span>
+                        </a>
+                        <ul class="submenu">
+                            
+                            <li><a href="#">Ovos</a></li>
+                            <li><a href="#">Ração</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                        <div class="sidebar-small-cap">Extra</div>
+                    </li>
+                    
+                    <li>
+                        <a href="https://dropways.github.io/deskapp-free-single-page-website-template/" target="_blank" class="dropdown-toggle no-arrow">
+                            <span class="micon bi bi-layout-text-window-reverse"></span>
+                            <span class="mtext">Landing Page
+                                <img src="{% static 'granja/images/coming-soon.png' %}" alt="" width="25" class="mCS_img_loaded"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="menu-block customscroll mCustomScrollbar _mCS_3 mCS_no_scrollbar"><div id="mCSB_3" class="mCustomScrollBox mCS-dark-2 mCSB_vertical mCSB_inside" tabindex="0" style="max-height: none;"><div id="mCSB_3_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
-        <div class="sidebar-menu icon-style-1 icon-list-style-1">
-            <ul id="accordion-menu">
-                <li>
-                    <a href="{% url 'granja:dashboard' %}" class="dropdown-toggle no-arrow">
-                        <span class="micon bi bi-clipboard-data"></span><span class="mtext">Dashboad</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" data-option="off">
-                        
-                        <span class="micon bi bi-bag-check-fill"></span><span class="mtext">Vendas</span>
-                    </a>
-                    <ul class="submenu">
-                        <li >
-                            <a href="{% url 'granja:gerar_venda' %}">Gerar Venda</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'granja:vendas' %}">Ver Vendas</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" data-option="off">
-                        <span class="micon bi bi-shop"></span><span class="mtext">Produtos</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="{% url 'granja:produtos' %}">Ver Produtos</a></li>
-                        <li><a href="{% url 'granja:criar_produto' %}">Criar Produtos</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" data-option="off">
-                        <span class="micon bi bi-table"></span><span class="mtext">Tables</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="basic-table.html">Basic Tables</a></li>
-                        <li><a href="datatable.html">DataTables</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" data-option="off">
-                        <span class="micon bi bi-box2-fill"></span><span class="mtext"> Estoque </span>
-                    </a>
-                    <ul class="submenu">
-                        
-                        <li><a href="#">Ovos</a></li>
-                        <li><a href="#">Ração</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="dropdown-divider"></div>
-                </li>
-                <li>
-                    <div class="sidebar-small-cap">Extra</div>
-                </li>
-                
-                <li>
-                    <a href="https://dropways.github.io/deskapp-free-single-page-website-template/" target="_blank" class="dropdown-toggle no-arrow">
-                        <span class="micon bi bi-layout-text-window-reverse"></span>
-                        <span class="mtext">Landing Page
-                            <img src="{% static 'granja/images/coming-soon.png' %}" alt="" width="25" class="mCS_img_loaded"></span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div><div id="mCSB_3_scrollbar_vertical" class="mCSB_scrollTools mCSB_3_scrollbar mCS-dark-2 mCSB_scrollTools_vertical mCSB_scrollTools_onDrag_expand" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_3_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; display: block; height: 0px; max-height: 753.6px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
+        
 </div>
+<div class="mobile-menu-overlay"></div>

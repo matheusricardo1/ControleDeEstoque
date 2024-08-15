@@ -7,13 +7,17 @@ from .models import (
     Produto,
     Venda,
     Vendedor,
-    Desconto
+    Desconto,
+    AppUser,
+    Empresa
 )
 
 admin.site.register(Cliente)
 admin.site.register(Estoque)
 admin.site.register(Vendedor)
 admin.site.register(Desconto)
+admin.site.register(AppUser)
+admin.site.register(Empresa)
 
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = ['nome', 'descricao', 'preco_valor', 'estoque_dinamico']

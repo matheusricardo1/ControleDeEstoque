@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import F
 from datetime import date
-
+from django.contrib.auth.models import User
 
 
 class Cliente(models.Model):
@@ -34,7 +34,6 @@ class Cliente(models.Model):
             return self.nome
         return self.telefone
 
-
 class Estoque(models.Model):
     nome = models.CharField(max_length=140)
     quantidade = models.PositiveSmallIntegerField()
@@ -42,14 +41,12 @@ class Estoque(models.Model):
     def __str__(self):
         return self.nome
 
-
 class Produto(models.Model):
     estoque = models.ForeignKey(Estoque, on_delete=models.CASCADE)
     nome = models.CharField(max_length=140, unique=True)
     preco = models.FloatField("Preço: ")
     preco_riscado = models.FloatField("Preço riscado R̶$̶2̶0̶: ")
-    cor = models.CharField(max_length=6, blank=True, default=None)
-    foto = models.ImageField(upload_to='media/produtos/', blank=True, default=None)
+    foto = models.ImageField(upload_to='produtos/', blank=True, default=None)
     descricao = models.CharField(max_length=200, blank=True, default=None)
     arquivado = models.BooleanField('Arquivado', default=False)
 
@@ -64,7 +61,6 @@ class Vendedor(models.Model):
 
     class Meta:
         verbose_name_plural = "Vendedores"
-
 
 class Desconto(models.Model):
     TIPO_CHOICES = (
@@ -91,7 +87,7 @@ class Venda(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, default=1)
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE, default=1)
     quantidade = models.PositiveSmallIntegerField()
-    desconto = models.ForeignKey(Desconto, on_delete=models.CASCADE, blank=True, null=True, default=1)
+    desconto = models.ForeignKey(Desconto, on_delete=models.CASCADE, blank=True, null=True, default=None)
     data_entrega = models.DateField(default=date.today)
     
     valor_total = models.FloatField('Valor da Venda', blank=True, null=True)
@@ -182,5 +178,28 @@ class Venda(models.Model):
         verbose_name = 'Venda'
         verbose_name_plural = 'Vendas'
 
+class Gasto(models.Model):
+    nome = models.CharField(max_length=100)
+    valor = models.FloatField()
 
+class AppUser(models.Model):
+    TIPO_USUARIO = (
+        ('1', 'Vendedor'),
+        ('2', 'Comprador')
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_type = models.CharField(choices=TIPO_USUARIO, max_length=10)
+
+    def __str__(self):
+        return f"{self.user.username}"
+
+class Empresa(models.Model):
+    usuarios = models.ManyToManyField(User)
+    arroba = models.CharField(max_length=50, unique=True)
+    nome = models.CharField(max_length=255)
+    endereco = models.TextField()
+    telefone = models.CharField(max_length=15)
+
+    def __str__(self):
+        return f"{self.nome}"
 

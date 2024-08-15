@@ -2,6 +2,8 @@ from datetime import date
 from django import forms
 from .models import Produto, Venda, Cliente
 from django.forms.widgets import TextInput, NumberInput, Select, FileInput
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 
 class ClienteForm(forms.ModelForm):
@@ -56,7 +58,6 @@ class ProdutoForm(forms.ModelForm):
             }),
         }
 
-
 class VendaForm(forms.ModelForm):
     class Meta:
         model = Venda
@@ -93,3 +94,10 @@ class VendaForm(forms.ModelForm):
             self.initial['data_entrega'] = instance.data_entrega.strftime('%Y-%m-%d')
         if not self.instance.pk:  
             self.fields['data_entrega'].initial = date.today().isoformat()
+
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
